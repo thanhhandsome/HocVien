@@ -1,0 +1,110 @@
+﻿
+@{
+    Layout = null;
+    iloveyou.Models.lylich hv = ViewBag.Hocvien as iloveyou.Models.lylich;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>FormXoaHocvien</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Thông tin học viên</h3>
+        <p>
+            <a class="btn btn-danger" href="@Url.Content("/Home/Index")">Trở về</a>
+        </p>
+        <div class="row">
+            <div class="col-md-2 font-weight-bold">
+                Mã số học viên:
+            </div>
+            <div class="col-md-4">
+                @hv.mshv
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 font-weight-bold">
+                Tên học viên:
+            </div>
+            <div class="col-md-4">
+                @hv.tenhv
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 font-weight-bold">
+                Ngày sinh:
+            </div>
+            <div class="col-md-4">
+                @hv.ngaysinh.Value.ToString("dd/MM/yyyy")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 font-weight-bold">
+                Phái:
+            </div>
+            <div class="col-md-4">
+                @{ string strPhai = hv.phai.Value ? "Nam" : "Nữ";}@strPhai
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 font-weight-bold">
+                Mã lớp:
+            </div>
+            <div class="col-md-4">
+                @hv.malop
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 font-weight-bold">
+                Tên lớp:
+            </div>
+            <div class="col-md-4">
+                @hv.lop.tenlop
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ma môn học</th>
+                    <th>Tên môn học</th>
+                    <th>Số tiết</th>
+                    <th>Điểm thi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in hv.diemthis)
+                {
+                    <tr>
+                        <td>@item.msmh</td>
+                        <td>@item.monhoc.tenmh</td>
+                        <td>@item.monhoc.sotiet</td>
+                        <td>@item.diem</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p>
+            @if ((bool)ViewBag.CoXoa == true)
+            {
+                <label>
+                    Bạn có muốn xóa học viên này không?
+                </label> <br />
+                <a href="@Url.Content("/HOME/XoaHocvien/" + hv.mshv)">Xóa học viên</a>
+            }
+            else
+            {
+                <label>
+                    Bạn không thể xóa học viên này
+                </label> <br />
+            }
+        </p>
+    </div>
+</body>
+</html>

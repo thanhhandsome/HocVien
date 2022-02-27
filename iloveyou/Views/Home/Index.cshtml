@@ -1,0 +1,58 @@
+﻿@model IEnumerable<iloveyou.Models.lylich>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh Sach Hoc Vien</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Danh sách học viên</h3>
+        <p>
+            <a href="@Url.Content("/Home/FormThemhocvien")" class="btn btn-primary">Thêm Học Viên</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mã Số HV</th>
+                    <th>Tên HV</th>
+                    <th>Ngày Sinh</th>
+                    <th>Phái</th>
+                    <th>Mã Lớp</th>
+                    <th>Tác Vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.mshv</td>
+                    <td>@item.tenhv</td>
+                    <td>@item.ngaysinh.Value.ToString("dd/MM/yyyy") </td>
+                    <td>
+                        @{string strPhai = item.phai.Value ? "Nam" : "Nu";
+                        }
+                        @strPhai
+                    </td>
+                    <td>@item.malop</td>
+                    <td>
+                        <a href="@Url.Content("/Home/FormSuaHocvien/"+item.mshv)">Sửa</a>
+                        <a href="@Url.Content("/Home/xemChiTietHocvien/"+item.mshv)">Xem Chi Tiết</a>
+                        <a href="@Url.Content("/Home/FormXoahocvien/"+item.mshv)">Xóa</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

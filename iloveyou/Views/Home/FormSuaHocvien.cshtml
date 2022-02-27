@@ -1,0 +1,93 @@
+﻿@model iloveyou.Models.lylich
+@{
+    Layout = null;
+    List<iloveyou.Models.lop> dsLop = ViewBag.DSLop as List<iloveyou.Models.lop>;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>FormSuaHocvien</title>
+</head>
+<body>
+    <div class="container">
+        <p>
+            <a href="@Url.Content("/Home/Index")" class="btn btn-primary">Trở về</a>
+        </p>
+        <form action="@Url.Content("/Home/SuaHocvien")" method="post">
+            <div class="form-group">
+                <label for="mshv">Mã số học viên</label>
+                <input type="text" name="mshv" value="@Model.mshv" class="form-control" readonly="readonly" />
+            </div>
+            <div class="form-group">
+                <label for="tenhv">Tên học viên</label>
+                <input type="text" name="tenhv" value="@Model.tenhv" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="ngaysinh">Ngày sinh</label>>
+                <input type="date" name="ngaysinh" value="@Model.ngaysinh.Value.ToString("dd/MM/yyyy")" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="mshv">Phái</label>
+                <br />
+                @if (Model.phai.Value == true)
+                {
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" name="phai" value="true" checked="checked" /> Nam
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" name="phai" value="false" /> Nữ
+                        </label>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" name="phai" value="true" /> Nam
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" name="phai" value="false" checked="checked" /> Nữ
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <label for="malop">Mã lớp</label>
+                <select name="malop" class="form-group">
+                    @foreach (var item in dsLop)
+                    {
+                        if (Model.malop == item.malop)
+                        {
+                            <option selected="selected">
+                                @item.malop
+                            </option>
+                        }
+                        else
+                        {
+                            <option>
+                                @item.malop
+                            </option>
+                        }
+                    }
+
+                </select>
+            </div>
+            <p>
+                <input type="submit" name="name" value="Sửa học viên" class="btn btn-primary" />
+            </p>
+        </form>
+    </div>
+</body>
+</html>
